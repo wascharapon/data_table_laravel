@@ -75,7 +75,7 @@
 
     $(document).ready(function() {
         //select data
-
+        $('#block_click').hide();
         //datatable
         var table = $('#example').DataTable({
             "ajax": {
@@ -91,33 +91,10 @@
                     })
                 },
                 "beforeSend": function(e) {
-                    let timerInterval
-                    Swal.fire({
-                        title: 'กำลังดาวโหลดข้อมูล',
-                        html: 'นับถอยหลัง <b></b> วินาที.',
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading()
-                            timerInterval = setInterval(() => {
-                                const content = Swal.getContent()
-                                if (content) {
-                                    const b = content.querySelector('b')
-                                    if (b) {
-                                        b.textContent = Swal.getTimerLeft()
-                                    }
-                                }
-                            }, 100)
-                        },
-                        willClose: () => {
-                            clearInterval(timerInterval)
-                        }
-                    }).then((result) => {
-                        /* Read more about handling dismissals below */
-                        if (result.dismiss === Swal.DismissReason.timer) {
-                            $('#block_click').hide();
-                        }
-                    })
+                    $('#block_click').show();
+                    setTimeout(function() {
+                        $('#block_click').hide();
+                    }, 3000);
                 },
             },
             "columns": [{
@@ -181,7 +158,8 @@
 </script>
 
 <body>
-    <div id="block_click" class="bg-primary w-100" style="opacity:0.5;height:100%;position: absolute;z-index: 1">&nbsp;</div>
+    <div id="block_click" class="bg-primary w-100" style="opacity:0.5;height:100%;position: absolute;z-index: 1">&nbsp;
+    </div>
     <br><br>
     <div class="d-flex flex-column bd-highlight  mt-2 bt-2 text-center">
         <div class="p-2 bd-highlight">
